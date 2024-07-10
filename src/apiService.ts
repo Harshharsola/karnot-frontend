@@ -6,7 +6,7 @@ class ApiService {
 
   private constructor() {
     this.api = axios.create({
-      baseURL: process.env.BACKEND_URL, // Replace with your API base URL
+      baseURL: process.env.REACT_APP_BACKEND_URL,
       timeout: 1000,
       headers: { "Content-Type": "application/json" },
     });
@@ -19,11 +19,12 @@ class ApiService {
     return ApiService.instance;
   }
 
-  public async get<T>(
-    url: string,
-    params?: Record<string, unknown>
+  public async getTransactions<T>(
+    skip: number,
+    limit: number
   ): Promise<AxiosResponse<T>> {
-    return this.api.get<T>(url, { params });
+    console.log(process.env.REACT_APP_BACKEND_URL);
+    return this.api.get<T>(`/transactions?skip=${skip}&limit=${limit}`);
   }
 
   public async post<T>(url: string, data: unknown): Promise<AxiosResponse<T>> {
