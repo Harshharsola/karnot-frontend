@@ -21,10 +21,13 @@ class ApiService {
 
   public async getTransactions<T>(
     skip: number,
-    limit: number
+    limit: number,
+    filter: string
   ): Promise<AxiosResponse<T>> {
     console.log(process.env.REACT_APP_BACKEND_URL);
-    return this.api.get<T>(`/transactions?skip=${skip}&limit=${limit}`);
+    return await this.api.get<T>(
+      `/transactions?skip=${skip}&limit=${limit}&filter=${filter}`
+    );
   }
 
   public async post<T>(url: string, data: unknown): Promise<AxiosResponse<T>> {
